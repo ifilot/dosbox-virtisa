@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.20)
 
-project(dosbox VERSION 0.74.3 LANGUAGES C CXX)
+project(dosbox-virtisa VERSION 0.1.0 LANGUAGES C CXX)
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -109,54 +109,41 @@ set(CMAKE_REQUIRED_LIBRARIES)
 check_c_source_compiles("#include <dirent.h>\nint main(){struct dirent d; d.d_type = 0; return 0;}" DIRENT_HAS_D_TYPE)
 check_c_source_compiles("#include <sys/resource.h>\nint main(){return setpriority(PRIO_PROCESS, 0, PRIO_MIN + PRIO_MAX);}" C_SET_PRIORITY)
 
-set(PACKAGE "dosbox")
-set(PACKAGE_NAME "dosbox")
-set(PACKAGE_TARNAME "dosbox")
+set(PACKAGE "dosbox-virtisa")
+set(PACKAGE_NAME "DOSBox-VirtIsa")
+set(PACKAGE_TARNAME "dosbox-virtisa")
 set(PACKAGE_VERSION "${PROJECT_VERSION}")
-set(PACKAGE_STRING "dosbox ${PROJECT_VERSION}")
+set(PACKAGE_STRING "DOSBox-VirtIsa ${PROJECT_VERSION}")
 set(PACKAGE_BUGREPORT "")
 set(PACKAGE_URL "")
 set(VERSION "${PROJECT_VERSION}")
 
 configure_file(config.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config.h @ONLY)
 
-set(DOSBOX_SOURCES
-  src/dosbox.cpp
-  src/cpu/callback.cpp src/cpu/cpu.cpp src/cpu/flags.cpp src/cpu/modrm.cpp src/cpu/core_full.cpp
-  src/cpu/paging.cpp src/cpu/core_normal.cpp src/cpu/core_simple.cpp src/cpu/core_prefetch.cpp
-  src/cpu/core_dyn_x86.cpp src/cpu/core_dynrec.cpp
-  src/debug/debug.cpp src/debug/debug_gui.cpp src/debug/debug_disasm.cpp src/debug/debug_win32.cpp
-  src/dos/dos.cpp src/dos/dos_devices.cpp src/dos/dos_execute.cpp src/dos/dos_files.cpp
-  src/dos/dos_ioctl.cpp src/dos/dos_memory.cpp src/dos/dos_misc.cpp src/dos/dos_classes.cpp
-  src/dos/dos_programs.cpp src/dos/dos_tables.cpp src/dos/drives.cpp src/dos/drive_virtual.cpp
-  src/dos/drive_local.cpp src/dos/drive_cache.cpp src/dos/drive_fat.cpp src/dos/drive_iso.cpp
-  src/dos/dos_mscdex.cpp src/dos/dos_keyboard_layout.cpp src/dos/cdrom.cpp src/dos/cdrom_ioctl_win32.cpp
-  src/dos/cdrom_aspi_win32.cpp src/dos/cdrom_ioctl_linux.cpp src/dos/cdrom_image.cpp src/dos/cdrom_ioctl_os2.cpp
-  src/fpu/fpu.cpp
-  src/gui/sdlmain.cpp src/gui/sdl_mapper.cpp src/gui/render.cpp src/gui/render_scalers.cpp src/gui/midi.cpp src/gui/sdl_gui.cpp
-  src/hardware/adlib.cpp src/hardware/dma.cpp src/hardware/gameblaster.cpp src/hardware/hardware.cpp
-  src/hardware/iohandler.cpp src/hardware/joystick.cpp src/hardware/keyboard.cpp src/hardware/memory.cpp
-  src/hardware/mixer.cpp src/hardware/pcspeaker.cpp src/hardware/pic.cpp src/hardware/sblaster.cpp
-  src/hardware/tandy_sound.cpp src/hardware/timer.cpp src/hardware/vga.cpp src/hardware/vga_attr.cpp
-  src/hardware/vga_crtc.cpp src/hardware/vga_dac.cpp src/hardware/vga_draw.cpp src/hardware/vga_gfx.cpp
-  src/hardware/vga_other.cpp src/hardware/vga_memory.cpp src/hardware/vga_misc.cpp src/hardware/vga_seq.cpp
-  src/hardware/vga_xga.cpp src/hardware/vga_s3.cpp src/hardware/vga_tseng.cpp src/hardware/vga_paradise.cpp
-  src/hardware/cmos.cpp src/hardware/disney.cpp src/hardware/gus.cpp src/hardware/mpu401.cpp
-  src/hardware/ipx.cpp src/hardware/ipxserver.cpp src/hardware/dbopl.cpp
-  src/hardware/mame/saa1099.cpp src/hardware/mame/sn76496.cpp
-  src/hardware/serialport/directserial.cpp src/hardware/serialport/libserial.cpp
-  src/hardware/serialport/serialdummy.cpp src/hardware/serialport/serialport.cpp
-  src/hardware/serialport/softmodem.cpp src/hardware/serialport/misc_util.cpp src/hardware/serialport/nullmodem.cpp
-  src/ints/mouse.cpp src/ints/xms.cpp src/ints/ems.cpp src/ints/int10.cpp src/ints/int10_char.cpp
-  src/ints/int10_memory.cpp src/ints/int10_misc.cpp src/ints/int10_modes.cpp src/ints/int10_vesa.cpp
-  src/ints/int10_pal.cpp src/ints/int10_put_pixel.cpp src/ints/int10_video_state.cpp src/ints/int10_vptable.cpp
-  src/ints/bios.cpp src/ints/bios_disk.cpp src/ints/bios_keyboard.cpp
-  src/misc/cross.cpp src/misc/messages.cpp src/misc/programs.cpp src/misc/setup.cpp src/misc/support.cpp
-  src/shell/shell.cpp src/shell/shell_batch.cpp src/shell/shell_cmds.cpp src/shell/shell_misc.cpp
-  src/libs/gui_tk/gui_tk.cpp
+file(GLOB DOSBOX_SOURCES CONFIGURE_DEPENDS
+  src/*.cpp
+  src/cpu/*.cpp
+  src/debug/*.cpp
+  src/dos/*.cpp
+  src/fpu/*.cpp
+  src/gui/*.cpp
+  src/hardware/*.cpp
+  src/hardware/mame/*.cpp
+  src/hardware/serialport/*.cpp
+  src/ints/*.cpp
+  src/misc/*.cpp
+  src/shell/*.cpp
+  src/libs/gui_tk/*.cpp
 )
 
 add_executable(dosbox ${DOSBOX_SOURCES})
+
+if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
+  target_compile_options(dosbox PRIVATE
+    -Wno-format
+    -Wno-address-of-packed-member
+  )
+endif()
 
 target_include_directories(dosbox PRIVATE
   ${CMAKE_CURRENT_BINARY_DIR}
@@ -186,4 +173,4 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
   target_link_libraries(dosbox PRIVATE m pthread)
 endif()
 
-message(STATUS "Configured DOSBox ${PROJECT_VERSION} with CMake")
+message(STATUS "Configured DOSBox-VirtIsa ${PROJECT_VERSION} with CMake")

@@ -760,8 +760,11 @@ void DOSBOX_Init(void) {
 		"You can put your MOUNT lines here.\n"
 	);
 	MSG_Add("CONFIGFILE_INTRO",
-	        "# This is the configuration file for DOSBox %s. (Please use the latest version of DOSBox)\n"
-	        "# Lines starting with a # are comment lines and are ignored by DOSBox.\n"
+	        "# This is the configuration file for DOSBox-VirtIsa %s.\n"
+	        "# DOSBox-VirtIsa is a custom ISA-card development fork derived from DOSBox.\n"
+	        "# Repository: https://github.com/ifilot/dosbox-virtisa\n"
+	        "# This adaptation follows the GNU GPL, in line with the original DOSBox licensing.\n"
+	        "# Lines starting with a # are comment lines and are ignored by DOSBox-VirtIsa.\n"
 	        "# They are used to (briefly) document the effect of each option.\n");
 	MSG_Add("CONFIG_SUGGESTED_VALUES", "Possible values");
 

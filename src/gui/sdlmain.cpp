@@ -291,9 +291,9 @@ void GFX_SetTitle(Bit32s cycles,Bits frameskip,bool paused){
 	if(cycles != -1) internal_cycles = cycles;
 	if(frameskip != -1) internal_frameskip = frameskip;
 	if(CPU_CycleAutoAdjust) {
-		sprintf(title,"DOSBox %s, Cpu speed: max %3d%% cycles, Frameskip %2d, Program: %8s",VERSION,internal_cycles,internal_frameskip,RunningProgram);
+		sprintf(title,"DOSBox-VirtIsa %s, Cpu speed: max %3ld%% cycles, Frameskip %2ld, Program: %8s",VERSION,internal_cycles,internal_frameskip,RunningProgram);
 	} else {
-		sprintf(title,"DOSBox %s, Cpu speed: %8d cycles, Frameskip %2d, Program: %8s",VERSION,internal_cycles,internal_frameskip,RunningProgram);
+		sprintf(title,"DOSBox-VirtIsa %s, Cpu speed: %8ld cycles, Frameskip %2ld, Program: %8s",VERSION,internal_cycles,internal_frameskip,RunningProgram);
 	}
 
 	if(paused) strcat(title," PAUSED");
@@ -1273,7 +1273,7 @@ static void GUI_StartUp(Section * sec) {
 		LOG_MSG("SDL:You are running in 24 bpp mode, this will slow down things!");
 	}
 	GFX_Stop();
-	SDL_WM_SetCaption("DOSBox",VERSION);
+	SDL_WM_SetCaption("DOSBox-VirtIsa",VERSION);
 
 /* The endian part is intentionally disabled as somehow it produces correct results without according to rhoenie*/
 //#if SDL_BYTEORDER == SDL_BIG_ENDIAN
@@ -1886,16 +1886,16 @@ int main(int argc, char* argv[]) {
 				freopen("CONOUT$","w",stdout);
 				freopen("CONOUT$","w",stderr);
 			}
-			SetConsoleTitle("DOSBox Status Window");
+			SetConsoleTitle("DOSBox-VirtIsa Status Window");
 		}
 #endif  //defined(WIN32) && !(C_DEBUG)
 		if (control->cmdline->FindExist("-version") ||
 		    control->cmdline->FindExist("--version") ) {
-			printf("\nDOSBox version %s, copyright 2002-2019 DOSBox Team.\n\n",VERSION);
-			printf("DOSBox is written by the DOSBox Team (See AUTHORS file))\n");
-			printf("DOSBox comes with ABSOLUTELY NO WARRANTY.  This is free software,\n");
-			printf("and you are welcome to redistribute it under certain conditions;\n");
-			printf("please read the COPYING file thoroughly before doing so.\n\n");
+			printf("\nDOSBox-VirtIsa version %s.\n\n",VERSION);
+			printf("DOSBox-VirtIsa is a custom fork of the original DOSBox project, developed for a custom ISA card initiative.\n");
+			printf("Repository: https://github.com/ifilot/dosbox-virtisa\n");
+			printf("Derived from DOSBox and distributed under the GNU General Public License (GPL) in compliance with the original license terms.\n");
+			printf("This software is provided WITHOUT ANY WARRANTY; see the COPYING file for full license details.\n\n");
 			return 0;
 		}
 		if(control->cmdline->FindExist("-printconf")) printconfiglocation();
@@ -1918,8 +1918,10 @@ int main(int argc, char* argv[]) {
 #endif
 
 	/* Display Welcometext in the console */
-	LOG_MSG("DOSBox version %s",VERSION);
-	LOG_MSG("Copyright 2002-2019 DOSBox Team, published under GNU GPL.");
+	LOG_MSG("DOSBox-VirtIsa version %s",VERSION);
+	LOG_MSG("DOSBox-VirtIsa is a custom fork for custom ISA card development.");
+	LOG_MSG("Repository: https://github.com/ifilot/dosbox-virtisa");
+	LOG_MSG("Derived from original DOSBox and distributed under the GNU GPL.");
 	LOG_MSG("---");
 
 	/* Init SDL */
