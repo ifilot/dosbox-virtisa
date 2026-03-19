@@ -1,0 +1,6 @@
+fix_manpage_errors.patch
+spelling-fixes.patch
+74-3-events.diff
+format-strings.patch
+0001-Use-getbegy-rather-than-accessing-window-structures-.patch
+thanks-utf-8.patch

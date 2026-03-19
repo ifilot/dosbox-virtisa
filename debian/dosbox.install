@@ -1,0 +1,4 @@
+debian/dosbox.desktop	usr/share/applications
+debian/icons/hicolor	usr/share/icons
+usr/bin/dosbox
+usr/share

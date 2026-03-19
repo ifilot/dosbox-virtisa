@@ -1,0 +1,14 @@
+Description: Convert THANKS to UTF-8
+Author: Stephen Kitt <skitt@debian.org>
+
+--- a/THANKS
++++ b/THANKS
+@@ -9,7 +9,7 @@
+ The Bochs and DOSemu projects which I used for information.
+ FreeDOS for ideas in making my shell.
+ 
+-Pierre-Yves Gérardy for hosting the old Beta Board.
++Pierre-Yves GÃ©rardy for hosting the old Beta Board.
+ Colin Snover for hosting our forum.
+ 
+ Sourceforge for hosting our homepage and other development tools.

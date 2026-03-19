@@ -1,0 +1,34 @@
+Author: Jan Dittberner <jandd@debian.org>
+Subject: fix manpage spelling error found by Lintian
+Last-Update: 2012-03-04
+--- a/docs/dosbox.1
++++ b/docs/dosbox.1
+@@ -111,7 +111,7 @@
+ .RI " move to second " program " if the first one fails to start."
+ .TP
+ .BI \-opencaptures " program"
+-.RI "calls " program " with as  first paramater the location of the captures folder."
++.RI "calls " program " with as  first parameter the location of the captures folder."
+ .TP
+ .B \-printconf
+ prints the location of the default configuration file.
+@@ -206,8 +206,8 @@
+ .TP
+ .B \-securemode
+ .RB Switches dosbox " to a more secure mode. In this mode the"
+-.RI "internal commands " MOUNT ", " IMGMOUNT " and " BOOT " won\'t work."
+-It\'s not possible
++.RI "internal commands " MOUNT ", " IMGMOUNT " and " BOOT " won't work."
++It's not possible
+ either to create a new configfile or languagefile in this mode.
+ (Warning you can only undo this mode by restarting
+ .BR dosbox .)
+@@ -216,7 +216,7 @@
+ The configuration file controls various settings of 
+ .BR dosbox ": The amount of emulated memory,"
+ the emulated soundcards and many
+-.RI "more things. It further allows acces to " AUTOEXEC.BAT .
++.RI "more things. It further allows access to " AUTOEXEC.BAT .
+ .LP
+ The language file controls all visible output of the internal commands and
+ the internal dos. 
