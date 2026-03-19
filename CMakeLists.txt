@@ -122,6 +122,7 @@ configure_file(config.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config.h @ONLY)
 
 file(GLOB DOSBOX_SOURCES CONFIGURE_DEPENDS
   src/*.cpp
+  src/isa/*.cpp
   src/cpu/*.cpp
   src/debug/*.cpp
   src/dos/*.cpp

@@ -42,6 +42,7 @@
 #include "mapper.h"
 #include "ints/int10.h"
 #include "render.h"
+#include "isa/isa.h"
 
 Config * control;
 MachineType machine;
@@ -73,6 +74,7 @@ void DMA_Init(Section*);
 void MIXER_Init(Section*);
 void MIDI_Init(Section*);
 void HARDWARE_Init(Section*);
+void ISA_Init(Section*);
 
 
 void KEYBOARD_Init(Section*);	//TODO This should setup INT 16 too but ok ;)
@@ -425,6 +427,7 @@ void DOSBOX_Init(void) {
 	secprop->AddInitFunction(&PAGING_Init);//done
 	secprop->AddInitFunction(&MEM_Init);//done
 	secprop->AddInitFunction(&HARDWARE_Init);//done
+	secprop->AddInitFunction(&ISA_Init);//VirtIsa custom insertion: ISA port 0x330 emulation
 	Pint = secprop->Add_int("memsize", Property::Changeable::WhenIdle,16);
 	Pint->SetMinMax(1,63);
 	Pint->Set_help(
