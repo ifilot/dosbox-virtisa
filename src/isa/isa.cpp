@@ -23,7 +23,7 @@ public:
 		 */
 		IO_RegisterReadHandler(kIsaPort, ReadPort, IO_MB);
 		IO_RegisterWriteHandler(kIsaPort, WritePort, IO_MB);
-		LOG_MSG("VIRTISA: Registered custom ISA port handler at 0x%03X", (unsigned int)kIsaPort);
+		LOG_MSG("[DEBUG]: Registered custom ISA port handler at 0x%03X", (unsigned int)kIsaPort);
 	}
 
 	~ISA330Port() {
@@ -32,13 +32,16 @@ public:
 	}
 
 	static Bitu ReadPort(Bitu /*port*/, Bitu /*iolen*/) {
+		LOG_MSG("[DEBUG]: read from 0x%03X -> 0x%02X",
+		        (unsigned int)kIsaPort, (unsigned int)shifted_value);
 		return shifted_value;
 	}
 
 	static void WritePort(Bitu /*port*/, Bitu val, Bitu /*iolen*/) {
 		const Bit8u input = (Bit8u)(val & 0xff);
 		shifted_value = (Bit8u)(input << kIsaShift);
-		LOG_MSG("VIRTISA: Port 0x330 write 0x%02X -> stored shifted value 0x%02X",
+		LOG_MSG("[DEBUG]: write to 0x%03X value 0x%02X -> shifted/stored 0x%02X",
+		        (unsigned int)kIsaPort,
 		        (unsigned int)input, (unsigned int)shifted_value);
 	}
 
@@ -60,6 +63,7 @@ void ISA_Init(Section *sec) {
 	 * VirtIsa custom insertion:
 	 * Initialize ISA 0x330 emulation module during DOSBox startup.
 	 */
+	LOG_MSG("[DEBUG]: initializing ISA 0x330 handler (this can override MPU-401 at the same port).");
 	isa_port_handler = new ISA330Port(sec);
 	sec->AddDestroyFunction(&ISA_Destroy, true);
 }

@@ -543,6 +543,7 @@ void DOSBOX_Init(void) {
 
 	secprop=control->AddSection_prop("midi",&MIDI_Init,true);//done
 	secprop->AddInitFunction(&MPU401_Init,true);//done
+	secprop->AddInitFunction(&ISA_Init,true);//VirtIsa debug insertion: register after MPU-401 to own port 0x330
 	
 	const char* mputypes[] = { "intelligent", "uart", "none",0};
 	// FIXME: add some way to offer the actually available choices.
