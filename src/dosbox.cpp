@@ -419,6 +419,9 @@ void DOSBOX_Init(void) {
 	Pstring = secprop->Add_path("captures",Property::Changeable::Always,"capture");
 	Pstring->Set_help("Directory where things like wave, midi, screenshot get captured.");
 
+	Pstring = secprop->Add_path("isa_sd_image", Property::Changeable::OnlyAtStart, "");
+	Pstring->Set_help("Path to SD-card image file used by the custom ISA interface on port 330h.");
+
 #if C_DEBUG	
 	LOG_StartUp();
 #endif
