@@ -59,12 +59,12 @@ static void W32_ConfDir(std::string& in,bool create) {
 void Cross::GetPlatformConfigDir(std::string& in) {
 #ifdef WIN32
 	W32_ConfDir(in,false);
-	in += "\\DOSBox";
+	in += "\\DOSBox-VirtIsa";
 #elif defined(MACOSX)
 	in = "~/Library/Preferences";
 	ResolveHomedir(in);
 #else
-	in = "~/.dosbox";
+	in = "~/.dosbox-virtisa";
 	ResolveHomedir(in);
 #endif
 	in += CROSS_FILESPLIT;
@@ -72,11 +72,11 @@ void Cross::GetPlatformConfigDir(std::string& in) {
 
 void Cross::GetPlatformConfigName(std::string& in) {
 #ifdef WIN32
-#define DEFAULT_CONFIG_FILE "dosbox-" VERSION ".conf"
+#define DEFAULT_CONFIG_FILE "dosbox-virtisa-" VERSION ".conf"
 #elif defined(MACOSX)
 #define DEFAULT_CONFIG_FILE "DOSBox " VERSION " Preferences"
 #else /*linux freebsd*/
-#define DEFAULT_CONFIG_FILE "dosbox-" VERSION ".conf"
+#define DEFAULT_CONFIG_FILE "dosbox-virtisa-" VERSION ".conf"
 #endif
 	in = DEFAULT_CONFIG_FILE;
 }
@@ -84,14 +84,14 @@ void Cross::GetPlatformConfigName(std::string& in) {
 void Cross::CreatePlatformConfigDir(std::string& in) {
 #ifdef WIN32
 	W32_ConfDir(in,true);
-	in += "\\DOSBox";
+	in += "\\DOSBox-VirtIsa";
 	mkdir(in.c_str());
 #elif defined(MACOSX)
 	in = "~/Library/Preferences/";
 	ResolveHomedir(in);
 	//Don't create it. Assume it exists
 #else
-	in = "~/.dosbox";
+	in = "~/.dosbox-virtisa";
 	ResolveHomedir(in);
 	mkdir(in.c_str(),0700);
 #endif

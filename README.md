@@ -1,6 +1,7 @@
 # DOSBox-VirtIsa
 
-This fork focuses on building an emulation environment for a custom ISA card.
+This fork focuses on building an emulation environment for a 
+[custom ISA card](https://github.com/ifilot/slot-otter).
 
 ## Purpose of this fork
 
